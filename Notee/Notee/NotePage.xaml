@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Notee"
+             x:Class="Notee.NotePage">
+
+
+    <Grid BackgroundColor="#080808">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        
+        <Grid Margin="0,10,0,10" Padding="10" Grid.Row="0">
+
+            <ImageButton Source="back_white.png" HeightRequest="40" BackgroundColor="Transparent" HorizontalOptions="Start" Clicked="BackClicked"/>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="End"  Spacing="20" Margin="0,0,10,0">
+
+                <Button Text="Save" BackgroundColor="White" TextColor="Black" CornerRadius="40" HeightRequest="0" Command="{Binding AddNoteCommand}"/>
+                <ImageButton Source="edit_white.png" HeightRequest="28" BackgroundColor="Transparent" Clicked="EditClicked" />
+                <ImageButton Source="delete_white.png" HeightRequest="30" BackgroundColor="Transparent" Command="{Binding DelNoteCommand}" Clicked="DeleteClicked"/>
+
+            </StackLayout>
+        </Grid>
+
+        
+        <StackLayout Grid.Row="1">
+            
+            <Entry Placeholder="Title" Text="{Binding title}" TextColor="White" FontSize="25" FontAttributes="Bold" WidthRequest="300" HorizontalOptions="Start" Margin="15,0,0,0"/>
+            
+            <ScrollView VerticalOptions="FillAndExpand" >
+                <Editor Placeholder="Note" Text="{Binding note}" TextColor="White" FontSize="18"  Keyboard="Plain" AutoSize="TextChanges" MaxLength="180" Margin="15,0,0,0"/>
+            </ScrollView>
+
+        </StackLayout>
+
+
+
+    </Grid>
+    
+</ContentPage>
+    
