@@ -9,26 +9,45 @@ using Xamarin.Forms.Xaml;
 
 namespace Notee
 {
+    public static class IsNew
+    {
+        public static bool isit = true;
+    }
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NotePage : ContentPage
     {
-        public double new_opc = 0.5;
-        public double non_new_opc = 10.0;
-
-        public bool new_blocked = true;
-        public bool non_new_blocked = false;
-        public NotePage(bool isnew)
+        private NoteModel note_model;
+        private int index;
+        public NotePage(bool isnew, NoteModel model, int ind)
         {
-            BindingContext = new NoteViewModel(Navigation);
+            BindingContext = new NoteViewModel();
             InitializeComponent();
+
             if (isnew)
             {
-                new_opc = 10.0;
-                non_new_opc = 0.5;
-                new_blocked = false;
-                non_new_blocked = true;
+                IsNew.isit = true;
+                SaveBtn.Opacity = 10.0; 
+                EditBtn.Opacity = 0.2; EditBtn.IsEnabled = false;
+                DelBtn.Opacity = 0.2; DelBtn.IsEnabled = false;
+
+                TitleField.IsEnabled = true; NoteField.IsEnabled = true;
             }
+            else
+            {
+                IsNew.isit = false;
+                this.index = ind;
+                this.note_model = model;
+                SaveBtn.Opacity = 0.2; SaveBtn.IsTabStop = false;
+                EditBtn.Opacity = 10; EditBtn.IsEnabled = true;
+                DelBtn.Opacity = 10; DelBtn.IsEnabled = true;
+
+                TitleField.Text = model.title;
+                NoteField.Text = model.description;
+
+                TitleField.IsEnabled = false; NoteField.IsEnabled = false;
+            }
+
         }
 
         public async void BackClicked(object sender, EventArgs e)
@@ -40,18 +59,39 @@ namespace Notee
             await Navigation.PopModalAsync(true);
         }
 
-        public bool towrite = true;
         public async void EditClicked(object sender, EventArgs e)
         {
             var btn = (ImageButton)sender;
             await btn.ScaleTo(0.75, 60);
             await btn.ScaleTo(1, 60);
+
+            SaveBtn.Opacity = 10.0; SaveBtn.IsTabStop = true;
+            EditBtn.Opacity = 0.2; EditBtn.IsEnabled = false;
+            DelBtn.Opacity = 0.2; DelBtn.IsEnabled = false;
+
+            TitleField.IsEnabled = true; NoteField.IsEnabled = true;
+
         }
         public async void DeleteClicked(object sender, EventArgs e)
         {
+
             var btn = (ImageButton)sender;
             await btn.ScaleTo(0.75, 60);
             await btn.ScaleTo(1, 60);
+
+            MessagingCenter.Send<NoteModel>(note_model, "Del");
+            await (Application.Current as App).MainPage.Navigation.PopModalAsync(true);
+        }
+
+        public async void SaveClicked(object sender, EventArgs e)
+        {
+            if (IsNew.isit != true)
+            {
+                note_model.title = TitleField.Text;
+                note_model.description = NoteField.Text;
+                MessagingCenter.Send<List<object>>(new List<object>() { note_model, index }, "Edit");
+                await (Application.Current as App).MainPage.Navigation.PopModalAsync(true);
+            }
         }
     }
 }

@@ -5,26 +5,33 @@
              x:Class="Notee.MainPage">
 
 
-    <StackLayout BackgroundColor="#080808">
-        <Label Text="Notee" FontSize="60" VerticalOptions="Start" HorizontalTextAlignment="Center" Padding="0,20,0,0" TextColor="White"/>
+
+    <StackLayout BackgroundColor="{AppThemeBinding Dark=#080808, Light=#F2F2F2}">
+        <Picker x:Name="sort_picker" SelectedIndexChanged="PickerSelected" Scale="0" Title="Sort by">
+            <Picker.Items>
+                <x:String>Alphabet</x:String>
+                <x:String>Date Created</x:String>
+            </Picker.Items>
+        </Picker>
+        <Label Text="Notee" FontSize="60" VerticalOptions="Start" HorizontalTextAlignment="Center" Padding="0,20,0,0" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
         <StackLayout Orientation="Horizontal" HorizontalOptions="End" Padding="30,10" Spacing="15">
-            <ImageButton x:Name="sortbtn" Source="sort_white.png" HeightRequest="25" BackgroundColor="Transparent" Clicked="SortClicked"/>
+            <ImageButton x:Name="sortbtn" Source="{AppThemeBinding Dark=sort_white.png, Light=sort_black.png}" HeightRequest="25" BackgroundColor="Transparent" Clicked="SortClicked"/>
 
         </StackLayout>
-        <Frame BackgroundColor="#252525" CornerRadius="10" HorizontalOptions="Center" HeightRequest="600" WidthRequest="350" >
+        <Frame BackgroundColor="{AppThemeBinding Dark=#252525, Light=#FCFCFC}" CornerRadius="10" HorizontalOptions="Center" HeightRequest="600" WidthRequest="350" >
             <ScrollView>
                 <ListView x:Name="NotesList" ItemsSource="{Binding AllNotes}" HasUnevenRows="True" SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Frame BackgroundColor="#3A3A3A" Margin="0,5,0,5" CornerRadius="10">
+                                <Frame BackgroundColor="{AppThemeBinding Dark=#3A3A3A, Light=#EFEFEF}" Margin="0,5,0,5" CornerRadius="10">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="NoteSelected"/>
                                     </Frame.GestureRecognizers>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="●" Margin="0,20,0,0" FontSize="10" TextColor="GhostWhite"/>
+                                        <Label Text="●" Margin="0,20,0,0" FontSize="10" TextColor="{AppThemeBinding Dark=GhostWhite, Light=Black}"/>
                                         <StackLayout>
-                                            <Label Text="{Binding title}" Padding="20,0" FontSize="20"   TextColor="White"/>
+                                            <Label Text="{Binding title}" Padding="20,0" FontSize="20"   TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                                             <Label Text="{Binding timestamp}" Padding="20,0"  FontSize="12" TextColor="Gray"/>
                                         </StackLayout>
                                     </StackLayout>
@@ -37,6 +44,8 @@
                 </ListView>
             </ScrollView>
         </Frame>
-        <Button x:Name="addbtn" Text="+" FontSize="30"  HorizontalOptions="Center" TextColor="White" BackgroundColor="Transparent" Clicked="AddClicked"/>
+        <Button x:Name="addbtn" Text="+" FontSize="30"  HorizontalOptions="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}" BackgroundColor="Transparent" Clicked="AddClicked"/>
     </StackLayout>
 </ContentPage>
+
+    

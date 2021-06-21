@@ -9,17 +9,14 @@ using Xamarin.Forms;
 
 namespace Notee
 {
-    partial class NoteViewModel : INotifyPropertyChanged
+    public partial class NoteViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public INavigation Navigation { get; set; }
         public ObservableCollection<NoteModel> AllNotes { get; set; }
 
-        public NoteViewModel(INavigation navitation)
+        public NoteViewModel()
         {
             AllNotes = new ObservableCollection<NoteModel>();
-            AllNotes.Add(new NoteModel("Maths Assignment", "this is test", 1624160304));
-            this.Navigation = navitation;
         }
         
 
@@ -66,23 +63,20 @@ namespace Notee
 
         async void AddNote()
         {
-            var time = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-            AllNotes.Add(new NoteModel(title, note, Convert.ToInt32(time)));
+            if(IsNew.isit == true)
+            {
+                var time = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                var newnote = new NoteModel(title, note, Convert.ToInt32(time));
+                AllNotes.Add(newnote);
+                MessagingCenter.Send<NoteModel>(newnote, "Add");
 
-            title = string.Empty;
-            note = string.Empty;
+                title = string.Empty;
+                note = string.Empty;
 
-            await Navigation.PushModalAsync(new MainPage(), true);
+                await (Application.Current as App).MainPage.Navigation.PopModalAsync(true);
+
+            }
+
         }
-
-        public ICommand DelNoteCommand => new Command(DelNote);
-        async void DelNote(object o)
-        {
-            var notemodel = (NoteModel)o;
-            AllNotes.Remove(notemodel);
-
-            await Navigation.PushModalAsync(new MainPage(), true);
-        }
-
     }
 }
