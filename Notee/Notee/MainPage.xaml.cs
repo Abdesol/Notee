@@ -17,8 +17,6 @@ namespace Notee
             BindingContext = new NoteViewModel();
             InitializeComponent();
 
-
-
             MessagingCenter.Subscribe<NoteModel>(this, "Add", (Obj) =>
             {
                 (BindingContext as NoteViewModel).AllNotes.Add(Obj);
