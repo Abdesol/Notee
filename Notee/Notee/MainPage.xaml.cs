@@ -22,7 +22,8 @@ namespace Notee
 
             MessagingCenter.Subscribe<NoteModel>(this, "Add", (Obj) =>
             {
-                db.AddNote(Obj);
+                int id = db.AddNote(Obj);
+                Obj.id = id;
                 (BindingContext as NoteViewModel).AllNotes.Add(Obj);
             });
 

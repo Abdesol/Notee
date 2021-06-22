@@ -87,10 +87,17 @@ namespace Notee
         {
             if (IsNew.isit != true)
             {
-                note_model.title = TitleField.Text;
-                note_model.description = NoteField.Text;
-                MessagingCenter.Send<List<object>>(new List<object>() { note_model, index }, "Edit");
-                await (Application.Current as App).MainPage.Navigation.PopModalAsync(true);
+                if (NoteField.Text == "")
+                {
+                    Acr.UserDialogs.UserDialogs.Instance.Toast("Please add a Note!", new TimeSpan(1));
+                }
+                else
+                {
+                    note_model.title = TitleField.Text;
+                    note_model.description = NoteField.Text;
+                    MessagingCenter.Send<List<object>>(new List<object>() { note_model, index }, "Edit");
+                    await (Application.Current as App).MainPage.Navigation.PopModalAsync(true);
+                }
             }
         }
     }

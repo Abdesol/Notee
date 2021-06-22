@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -6,6 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
 
 namespace Notee
 {
@@ -68,15 +71,23 @@ namespace Notee
         {
             if(IsNew.isit == true)
             {
-                var time = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-                var newnote = new NoteModel(title, note, Convert.ToInt32(time));
-                AllNotes.Add(newnote);
-                MessagingCenter.Send<NoteModel>(newnote, "Add");
+                if (note == null)
+                {
+                    UserDialogs.Instance.Toast("Please add a Note!", new TimeSpan(1));
+                }
+                else
+                {
+                    var time = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                    Console.WriteLine($"Time is {time}");
+                    var newnote = new NoteModel(title, note, time);
+                    AllNotes.Add(newnote);
+                    MessagingCenter.Send<NoteModel>(newnote, "Add");
 
-                title = string.Empty;
-                note = string.Empty;
+                    title = string.Empty;
+                    note = string.Empty;
 
-                await (Application.Current as App).MainPage.Navigation.PopModalAsync(true);
+                    await (Application.Current as App).MainPage.Navigation.PopModalAsync(true);
+                }
 
             }
 

@@ -19,27 +19,12 @@
   </style>
   
   
-  <style name="LightTheme" parent="Theme.AppCompat.NoActionBar">
+  <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-    <item name="android:statusBarColor">@color/light_splash_background</item>
-    <item name="android:windowIsTranslucent">false</item>
-
-    <item name="android:windowBackground">@color/light_splash_background</item>
-
+    <item name="android:windowBackground">@drawable/splash_screen</item>
+    <item name="android:statusBarColor">@color/splash_background</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowActionBar">true</item>
-    
-  </style>
-  
-  
-  <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar">
-
-    <item name="android:statusBarColor" >@color/dark_splash_background</item>
-    <item name="android:windowIsTranslucent">false</item>
-
-    <item name="android:windowBackground">@color/dark_splash_background</item>
-
-    <item name="android:windowContentOverlay">@null</item>
     
   </style>
 </resources>
