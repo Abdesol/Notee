@@ -16,7 +16,10 @@ namespace Notee
 
         public NoteViewModel()
         {
-            AllNotes = new ObservableCollection<NoteModel>();
+            var db = new DatabaseHandler();
+            AllNotes = db.GetNotes();
+
+            //AllNotes = new ObservableCollection<NoteModel>();
         }
         
 

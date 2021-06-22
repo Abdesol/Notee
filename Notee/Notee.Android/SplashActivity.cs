@@ -1,16 +1,8 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using Xamarin.Essentials;
 
 namespace Notee.Droid
@@ -24,6 +16,8 @@ namespace Notee.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            base.OnCreate(savedInstanceState);
+            
             if (AppInfo.RequestedTheme == AppTheme.Dark)
             {
                 SetTheme(Resource.Style.DarkTheme);
@@ -33,8 +27,6 @@ namespace Notee.Droid
                 SetTheme(Resource.Style.LightTheme);
             }
 
-
-            base.OnCreate(savedInstanceState);
         }
 
         protected override async void OnResume()
@@ -45,12 +37,9 @@ namespace Notee.Droid
 
         async Task SimulateStartUp()
         {
-            if (OnRun.isfirst == true)
-            {
-                OnRun.isfirst = false;
-                await Task.Delay(TimeSpan.FromSeconds(2.5));
-                StartActivity(new Intent(Android.App.Application.Context, typeof(MainActivity)));
-            }
+            await Task.Delay(TimeSpan.FromSeconds(0.1));
+            StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            Finish();
         }
     }
 }

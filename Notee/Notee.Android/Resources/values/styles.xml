@@ -19,10 +19,10 @@
   </style>
   
   
-  <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="LightTheme" parent="Theme.AppCompat.NoActionBar">
 
     <item name="android:statusBarColor">@color/light_splash_background</item>
-    <item name="android:windowLightStatusBar">false</item>
+    <item name="android:windowIsTranslucent">false</item>
 
     <item name="android:windowBackground">@color/light_splash_background</item>
 
@@ -32,9 +32,10 @@
   </style>
   
   
-  <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar">
 
-    <item name="android:statusBarColor">@color/dark_splash_background</item>
+    <item name="android:statusBarColor" >@color/dark_splash_background</item>
+    <item name="android:windowIsTranslucent">false</item>
 
     <item name="android:windowBackground">@color/dark_splash_background</item>
 

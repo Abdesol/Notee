@@ -12,23 +12,29 @@ namespace Notee
 
     public partial class MainPage : ContentPage
     {
+        public DatabaseHandler db;
         public MainPage()
         {
             BindingContext = new NoteViewModel();
             InitializeComponent();
 
+            db = new DatabaseHandler();
+
             MessagingCenter.Subscribe<NoteModel>(this, "Add", (Obj) =>
             {
+                db.AddNote(Obj);
                 (BindingContext as NoteViewModel).AllNotes.Add(Obj);
             });
 
             MessagingCenter.Subscribe<NoteModel>(this, "Del", (Obj) =>
             {
+                db.DelNote(Obj.id);
                 (BindingContext as NoteViewModel).AllNotes.Remove(Obj);
             });
 
             MessagingCenter.Subscribe<List<object>>(this, "Edit", (Obj) =>
             {
+                db.EditNote((NoteModel)Obj[0]);
                 (BindingContext as NoteViewModel).AllNotes[(int)Obj[1]] = (NoteModel)Obj[0];
             });
         }
