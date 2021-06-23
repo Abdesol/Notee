@@ -78,7 +78,6 @@ namespace Notee
                 else
                 {
                     var time = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-                    Console.WriteLine($"Time is {time}");
                     var newnote = new NoteModel(title, note, time);
                     AllNotes.Add(newnote);
                     MessagingCenter.Send<NoteModel>(newnote, "Add");

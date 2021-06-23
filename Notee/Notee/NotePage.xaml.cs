@@ -55,6 +55,18 @@ namespace Notee
             var btn = (ImageButton)sender;
             await btn.ScaleTo(0.75, 60);
             await btn.ScaleTo(1, 60);
+            if(String.IsNullOrWhiteSpace(NoteField.Text) == false)
+            {
+                if (IsNew.isit == true)
+                {
+                    var new_note_model = new NoteModel(TitleField.Text, NoteField.Text, new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds());
+                    MessagingCenter.Send<NoteModel>(new_note_model, "Add");
+                }
+                else
+                {
+                    MessagingCenter.Send<List<object>>(new List<object>() { note_model, index }, "Edit");
+                }
+            }
 
             await Navigation.PopModalAsync(true);
         }
@@ -87,7 +99,7 @@ namespace Notee
         {
             if (IsNew.isit != true)
             {
-                if (NoteField.Text == "")
+                if (String.IsNullOrWhiteSpace(NoteField.Text) == true)
                 {
                     Acr.UserDialogs.UserDialogs.Instance.Toast("Please add a Note!", new TimeSpan(1));
                 }

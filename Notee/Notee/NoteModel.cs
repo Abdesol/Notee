@@ -17,9 +17,9 @@ namespace Notee
         {
             this.title = title;
             this.description = description;
-            var dt = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timestamp).ToLocalTime();
-            timeunix = dt.Ticks;
-            this.timestamp = dt.ToString("d MMM yyyy");
+            this.timeunix = timestamp;
+            var tm = DateTimeOffset.FromUnixTimeSeconds(this.timeunix).LocalDateTime;
+            this.timestamp = tm.ToString("d MMM yyyy");
         }
     }
 }
