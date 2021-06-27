@@ -34,7 +34,7 @@ Notee is your android notes app that you will save your notes, ideas and todo's.
 
 # Release
 
-To download the app checkout the  playstore link that is _________
+To download the app checkout the  playstore link that is https://play.google.com/store/apps/details?id=com.abdesol.notee
 
 
 # Contribution
